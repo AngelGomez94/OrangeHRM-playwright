@@ -1,0 +1,66 @@
+{
+  "alta_empleado": {
+    "first_name": "Pruebita",
+    "middle_name": "QAtito",
+    "last_name": "Petro"
+  },
+  "personal_details": {
+    "other_id": "Angel123",
+    "license_number": "180000241787",
+    "license_exp": "2025-12-31",
+    "nationality": "Dutch",
+    "marital_status": "Single",
+    "date_of_birth": "1994-09-14"
+  },
+  "custom_fields": {
+    "emergency_contact": "5525123944",
+    "job_title": "QA Engineer",
+    "blood_type": "A+"
+  },
+  "contact_details": {
+    "street1": "Calle de prubas QA",
+    "street2": "Otra calle de pruebas",
+    "city": "Ciudad de pruebas",
+    "state": "Estado de pruebas",
+    "zip_code": "12345",
+    "country": "Mexico",
+    "home_phone": "555-1234",
+    "mobile": "555-5678",
+    "work_phone": "555-9012"
+  },
+  "emergency_contacts": [
+    {
+      "name": "Carlos Gomez",
+      "relationship": "Hermano",
+      "home_phone": "5551234",
+      "mobile_phone": "552511314"
+    },
+    {
+      "name": "Maria Lopez",
+      "relationship": "Madre",
+      "home_phone": "555-9876",
+      "mobile_phone": "55-25-11-314"
+    },
+    {
+      "name": "Juan Perez",
+      "relationship": "Amigo",
+      "home_phone": "555-0000",
+      "mobile_phone": "55-25-11-314"
+    }
+  ],
+  "dependents": {
+    "name": "Sofia Angel",
+    "relationship": "Other",
+    "specific_relationship": "Daughter",
+    "date_of_birth": "2015-05-20"
+  },
+  "inmigration": {
+    "number_document": "X1234567",
+    "document_issued_date": "2020-01-01",
+    "document_expiration_date": "2030-01-01",
+    "document_status": "Valid",
+    "document_issued_by": "Mexico",
+    "document_review_date": "2025-01-01",
+    "document_comments": "No comments"
+  }
+}
