@@ -24,7 +24,6 @@ class PimPage(BasePage):
         self.genero_femenino=page.get_by_text("Female",exact = True)
         self.btn_personal_details = page.locator("(//button[@type='submit'][normalize-space()='Save'])[1]")
         self.dropdown_tipo_sangre = page.locator("//label[text() = 'Blood Type']/parent::div/following-sibling::div//div[@class='oxd-select-text-input']")
-        self.subir_archivo_personal_details = ("input[type='file']")
         self.btn_save_customfields = page.locator("(//button[@type='submit'][normalize-space()='Save'])[2]")
         self.btn_add_attachment = page.get_by_role("button", name = "Add")
         self.btn_save_attachment_employe = page.locator("(//button[@type='submit'][normalize-space()='Save'])[3]")
@@ -83,9 +82,9 @@ class PimPage(BasePage):
         opcion_tipo_sangre = self.page.get_by_role("option", name= data['blood_type'], exact = True)
         self.llenar_dropdown(self.dropdown_tipo_sangre,opcion_tipo_sangre)
         self.hacer_click(self.btn_save_customfields)
-    def subir_archivo_empleado(self):
+    def subir_archivo_empleado(self,data):
         self.hacer_click(self.btn_add_attachment)
-        self.subir_archivo("./data/Libro1.csv",self.input_foto)
+        self.subir_archivo(data['ruta_archivos'],self.input_foto)
         self.hacer_click(self.btn_save_attachment_employe)
 
     def llenar_contact_details(self,data):

@@ -23,7 +23,7 @@ def test_alta_empleado(page_autenticada):
     pim.completar_custom_fields(EMPLOYEE_DATA['custom_fields'])
     expect(toast).to_contain_text("Successfully Saved") 
     expect(toast).to_be_hidden()
-    pim.subir_archivo_empleado()
+    pim.subir_archivo_empleado(EMPLOYEE_DATA['data'])
     expect(toast).to_contain_text("Successfully Saved") 
     expect(toast).to_be_hidden()
     pim.llenar_contact_details(EMPLOYEE_DATA['contact_details'])

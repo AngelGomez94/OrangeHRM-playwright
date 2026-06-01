@@ -17,6 +17,7 @@
     "job_title": "QA Engineer",
     "blood_type": "A+"
   },
+  
   "contact_details": {
     "street1": "Calle de prubas QA",
     "street2": "Otra calle de pruebas",
@@ -62,5 +63,8 @@
     "document_issued_by": "Mexico",
     "document_review_date": "2025-01-01",
     "document_comments": "No comments"
+  },
+  "data":{
+    "ruta_archivos": "./data/Libro1.csv"
   }
 }
