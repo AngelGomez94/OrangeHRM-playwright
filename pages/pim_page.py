@@ -1,5 +1,6 @@
 from pages.base_page import BasePage
-import os 
+from playwright.sync_api import expect
+
 
 class PimPage(BasePage):
     def __init__(self,page):
@@ -51,6 +52,19 @@ class PimPage(BasePage):
         self.telefono_movil_emergencia = page.locator("//label[text() = 'Mobile']/parent::div/following-sibling::div/input")
         self.btn_save_emergency_contact = page.locator("(//button[@type='submit'][normalize-space()='Save'])")
         self.btn_add_attachment_emergency_contact = page.locator("(//button[@type='button'][normalize-space()='Add'])[2]")
+        self.btn_save_attachment_emergency_contact = page.locator("(//button[@type='submit'][normalize-space()='Save'])")
+        #Locators dependents
+        self.tab_dependents = page.get_by_role("link", name="Dependents")
+        self.btn_add_dependent = page.locator("(//button[@type='button'][normalize-space()='Add'])[1]")
+        self.nombre_dependiente = page.locator("//label[text()='Name']/parent::div/following-sibling::div/input")
+        self.dropdonwn_parentezco_dependiente = page.locator("//label[text() = 'Relationship']/parent::div/following-sibling::div//div[@class='oxd-select-text-input']")
+        self.especificar_parentezco = page.locator("//label[text() = 'Please Specify']/parent::div/following-sibling::div/input")
+        self.fecha_nacimiento_dependiente = page.locator("//label[text() = 'Date of Birth']/parent::div/following-sibling::div//input")
+        self.btn_save_dependiente = page.locator("(//button[@type='submit'][normalize-space()='Save'])")
+        self.btn_add_attachment_dependiente = page.locator("(//button[@type='button'][normalize-space()='Add'])[2]")
+        self.btn_save_attachment_dependiente = page.locator("(//button[@type='submit'][normalize-space()='Save'])")
+
+
 
 
     def alta_nuevo_empleado(self,data, id_empleado):
@@ -62,7 +76,7 @@ class PimPage(BasePage):
         self.id_empleado.clear()
         self.escribir_texto(self.id_empleado,id_empleado)
         #Subir la foto del empleado
-        self.subir_archivo("./data/foto.jpg",self.input_foto)
+        self.subir_archivo(data['ruta_foto'],self.input_foto)
         self.hacer_click(self.btn_primer_save_empleado)
     def validar_toast_positivo(self):
         return self.toast_success_alta_nuevo_empleado
@@ -103,9 +117,9 @@ class PimPage(BasePage):
         self.generar_correo_aleatorio(self.otro_correo)
         self.hacer_click(self.btn_save_contact_details)
 
-    def subir_archivo_contacto_empleado(self):
+    def subir_archivo_contacto_empleado(self,data):
         self.hacer_click(self.btn_add_attachment)
-        self.subir_archivo("./data/Plan_Uchiha.docx",self.input_foto)
+        self.subir_archivo(data['archivo_contacto_empleado'],self.input_foto)
         self.hacer_click(self.btn_save_attachment_contact_details)
 
     def agregar_contactos_emergencia(self,data):
@@ -120,10 +134,42 @@ class PimPage(BasePage):
             self.escribir_texto(self.telefono_movil_emergencia,contactos['mobile_phone'])
             
             self.hacer_click(self.btn_save_emergency_contact)
-
             toast = self.validar_toast_positivo()
             toast.wait_for(state = "visible")
+            expect(toast).to_contain_text("Successfully Saved") 
             toast.wait_for(state = "hidden")
+
+    def subir_archivos_contactos_emergencia(self,data):
+        self.hacer_click(self.btn_add_attachment_emergency_contact)
+        self.subir_archivo(data['ruta_archivo_contacto_emergencia'],self.input_foto)
+        self.hacer_click(self.btn_save_attachment_emergency_contact)
+
+    def llenar_dependientes(self,data):
+        self.hacer_click(self.tab_dependents)
+
+        for dependientes in data:
+            self.hacer_click(self.btn_add_dependent)
+            self.escribir_texto(self.nombre_dependiente,dependientes['name'])
+            opcion_parentezco = self.page.get_by_role("option", name = dependientes['relationship'], exact = True)
+            self.llenar_dropdown(self.dropdonwn_parentezco_dependiente,opcion_parentezco)
+            if dependientes['relationship'] == 'Other':
+                self.escribir_texto(self.especificar_parentezco,dependientes['specific_relationship'])
+            self.escribir_texto(self.fecha_nacimiento_dependiente,dependientes['date_of_birth'])
+            self.hacer_click(self.btn_save_dependiente)
+            toast = self.validar_toast_positivo()
+            toast.wait_for(state="visible")
+            toast.wait_for(state="hidden")
+            
+            
+            
+
+            
+            
+
+
+    
+
+        
 
 
 
