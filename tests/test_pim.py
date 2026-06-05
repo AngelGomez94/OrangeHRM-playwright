@@ -30,13 +30,24 @@ def test_alta_empleado(page_autenticada):
     expect(toast).to_contain_text("Successfully Updated") 
     expect(toast).to_be_hidden()
     pim.subir_archivo_contacto_empleado(EMPLOYEE_DATA['data'])
+
     expect(toast).to_contain_text("Successfully Saved") 
     expect(toast).to_be_hidden()
-    pim.agregar_contactos_emergencia(EMPLOYEE_DATA['emergency_contacts'])
-    pim.subir_archivos_contactos_emergencia(EMPLOYEE_DATA['data'])
-    expect(toast).to_contain_text("Successfully Saved") 
+    pim.ir_contactos_emergencia()
+    for contactos in EMPLOYEE_DATA['emergency_contacts']:
+        pim.llenar_concatos_emergencia(contactos)
+        expect(toast).to_contain_text("Successfully Saved")
+        expect(toast).to_be_hidden()
+    pim.subir_archivos_contactos_emergencia(contactos)
+    expect(toast).to_contain_text("Successfully Saved")
     expect(toast).to_be_hidden()
-    pim.llenar_dependientes(EMPLOYEE_DATA['dependents'])
+  
+    pim.ir_dependientes()
+    for dependiente in EMPLOYEE_DATA['dependents']:
+        pim.agregar_dependientes(dependiente)
+        expect(toast).to_contain_text("Successfully Saved")
+        expect(toast).to_be_hidden()
+
     
     
 

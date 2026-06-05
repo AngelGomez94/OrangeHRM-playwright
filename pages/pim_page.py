@@ -118,47 +118,40 @@ class PimPage(BasePage):
         self.hacer_click(self.btn_save_contact_details)
 
     def subir_archivo_contacto_empleado(self,data):
+        self.page.pause()
         self.hacer_click(self.btn_add_attachment)
         self.subir_archivo(data['archivo_contacto_empleado'],self.input_foto)
         self.hacer_click(self.btn_save_attachment_contact_details)
 
-    def agregar_contactos_emergencia(self,data):
-        self.page.pause()
+    def ir_contactos_emergencia(self):
         self.hacer_click(self.tab_emergency_contacts)
 
-        for contactos in data:
-            self.hacer_click(self.add_emergency_contact)
-            self.escribir_texto(self.nombre_contacto_emergencia,contactos['name'])
-            self.escribir_texto(self.parentezco_contacto_emergencia,contactos['relationship'])
-            self.escribir_texto(self.telefono_casa_emergencia,contactos['home_phone'])
-            self.escribir_texto(self.telefono_movil_emergencia,contactos['mobile_phone'])
-            
-            self.hacer_click(self.btn_save_emergency_contact)
-            toast = self.validar_toast_positivo()
-            toast.wait_for(state = "visible")
-            expect(toast).to_contain_text("Successfully Saved") 
-            toast.wait_for(state = "hidden")
+    def llenar_concatos_emergencia(self, contactos):
+        self.hacer_click(self.add_emergency_contact)
+        self.escribir_texto(self.nombre_contacto_emergencia,contactos['name'])
+        self.escribir_texto(self.parentezco_contacto_emergencia,contactos['relationship'])
+        self.escribir_texto(self.telefono_casa_emergencia,contactos['home_phone'])
+        self.escribir_texto(self.telefono_movil_emergencia,contactos['mobile_phone'])
+        
 
     def subir_archivos_contactos_emergencia(self,data):
         self.hacer_click(self.btn_add_attachment_emergency_contact)
         self.subir_archivo(data['ruta_archivo_contacto_emergencia'],self.input_foto)
         self.hacer_click(self.btn_save_attachment_emergency_contact)
 
-    def llenar_dependientes(self,data):
+    def ir_dependientes(self):
         self.hacer_click(self.tab_dependents)
 
-        for dependientes in data:
-            self.hacer_click(self.btn_add_dependent)
-            self.escribir_texto(self.nombre_dependiente,dependientes['name'])
-            opcion_parentezco = self.page.get_by_role("option", name = dependientes['relationship'], exact = True)
-            self.llenar_dropdown(self.dropdonwn_parentezco_dependiente,opcion_parentezco)
-            if dependientes['relationship'] == 'Other':
-                self.escribir_texto(self.especificar_parentezco,dependientes['specific_relationship'])
-            self.escribir_texto(self.fecha_nacimiento_dependiente,dependientes['date_of_birth'])
-            self.hacer_click(self.btn_save_dependiente)
-            toast = self.validar_toast_positivo()
-            toast.wait_for(state="visible")
-            toast.wait_for(state="hidden")
+    def agregar_dependientes(self, dependientes):
+        self.hacer_click(self.btn_add_dependent)
+        self.escribir_texto(self.nombre_dependiente,dependientes['name'])
+        opcion_parentezco = self.page.get_by_role("option", name = dependientes['relationship'], exact = True)
+        self.llenar_dropdown(self.dropdonwn_parentezco_dependiente,opcion_parentezco)
+        if dependientes['relationship'] == 'Other':
+            self.escribir_texto(self.especificar_parentezco,dependientes['specific_relationship'])
+        self.escribir_texto(self.fecha_nacimiento_dependiente,dependientes['date_of_birth'])
+        self.hacer_click(self.btn_save_dependiente)
+
             
             
             
