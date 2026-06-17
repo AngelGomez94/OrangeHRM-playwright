@@ -38,7 +38,7 @@ def test_alta_empleado(page_autenticada):
         pim.llenar_concatos_emergencia(contactos)
         expect(toast).to_contain_text("Successfully Saved")
         expect(toast).to_be_hidden()
-    pim.subir_archivos_contactos_emergencia(contactos)
+    pim.subir_archivos_contactos_emergencia(EMPLOYEE_DATA['data'])
     expect(toast).to_contain_text("Successfully Saved")
     expect(toast).to_be_hidden()
   

@@ -63,6 +63,14 @@ class PimPage(BasePage):
         self.btn_save_dependiente = page.locator("(//button[@type='submit'][normalize-space()='Save'])")
         self.btn_add_attachment_dependiente = page.locator("(//button[@type='button'][normalize-space()='Add'])[2]")
         self.btn_save_attachment_dependiente = page.locator("(//button[@type='submit'][normalize-space()='Save'])")
+        #Locators Inmmigration
+        self.tab_immigration = page.get_by_role("link", name="Immigration")
+        self.btn_add_immigration = page.locator("(//button[@type='button'][normalize-space()='Add'])[1]")
+        self.pasaporte = page.get_by_text("Male",exact = True)
+        self.visa=page.get_by_text("Female",exact = True)
+
+
+
 
 
 
@@ -118,7 +126,6 @@ class PimPage(BasePage):
         self.hacer_click(self.btn_save_contact_details)
 
     def subir_archivo_contacto_empleado(self,data):
-        self.page.pause()
         self.hacer_click(self.btn_add_attachment)
         self.subir_archivo(data['archivo_contacto_empleado'],self.input_foto)
         self.hacer_click(self.btn_save_attachment_contact_details)
@@ -127,12 +134,14 @@ class PimPage(BasePage):
         self.hacer_click(self.tab_emergency_contacts)
 
     def llenar_concatos_emergencia(self, contactos):
+        self.page.pause()
         self.hacer_click(self.add_emergency_contact)
         self.escribir_texto(self.nombre_contacto_emergencia,contactos['name'])
         self.escribir_texto(self.parentezco_contacto_emergencia,contactos['relationship'])
         self.escribir_texto(self.telefono_casa_emergencia,contactos['home_phone'])
         self.escribir_texto(self.telefono_movil_emergencia,contactos['mobile_phone'])
-        
+        self.hacer_click(self.btn_save_emergency_contact)
+
 
     def subir_archivos_contactos_emergencia(self,data):
         self.hacer_click(self.btn_add_attachment_emergency_contact)
@@ -151,6 +160,7 @@ class PimPage(BasePage):
             self.escribir_texto(self.especificar_parentezco,dependientes['specific_relationship'])
         self.escribir_texto(self.fecha_nacimiento_dependiente,dependientes['date_of_birth'])
         self.hacer_click(self.btn_save_dependiente)
+
 
             
             
